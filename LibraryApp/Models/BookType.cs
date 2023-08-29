@@ -1,10 +1,14 @@
-﻿namespace LibraryApp.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace LibraryApp.Models
 {
     public class BookType
     {
+        [Key]
         public int TypeId { get; set; }
 
-        public string? TypeName { get; set; }
+        [Required]
+        public string TypeName { get; set; }
 
     }
 }
