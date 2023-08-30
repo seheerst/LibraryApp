@@ -1,0 +1,18 @@
+﻿@model List<BookType>
+
+
+<table class="table table-bordered">
+    <tr>
+        <th>Id</th>
+        <th>
+            Type Name
+        </th>
+    </tr>
+    @foreach (var type in Model)
+    {
+        <tr>
+            <td>@type.TypeId</td>
+            <td>@type.TypeName</td>
+        </tr>
+    }
+</table>
