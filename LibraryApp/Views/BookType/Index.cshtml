@@ -1,18 +1,31 @@
 ﻿@model List<BookType>
+<h1 class="mb-4 text-primary">Book Types</h1>
+<div style="Display: flex; Align-items: center; Justify-content: center;">
+    
+<div >
 
-
-<table class="table table-bordered">
-    <tr>
-        <th>Id</th>
-        <th>
-            Type Name
-        </th>
-    </tr>
-    @foreach (var type in Model)
-    {
+    <table class="table table-bordered">
         <tr>
-            <td>@type.TypeId</td>
-            <td>@type.TypeName</td>
+            <th width="130px">Id</th>
+            <th width="250px">
+                Type Name
+            </th>
+            <th width="300px"></th>
         </tr>
-    }
-</table>
+        @foreach (var type in Model)
+        {
+            <tr>
+                <td>@type.TypeId</td>
+                <td>@type.TypeName</td>
+                <td >
+                    <button type="button" class="btn btn-outline-secondary btn-sm" style="width: 110px">Edit</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" style="width: 130px">Delete</button>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+</div>
+    <div class="row pt-3 pb-2" style=" width: 1000px; Justify-content: end">
+        <a asp-action="Create" type="button" class="btn btn-primary btn-lg" style="width: 150px">New Type</a>
+    </div>
