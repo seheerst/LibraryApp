@@ -1,0 +1,17 @@
+@model BookType
+<div class="container">
+    
+    <h1 class="text-secondary">Create New Type</h1>
+    <hr>
+    <form asp-action="Create" method="post">
+        <div class="form-group">
+            <label asp-for="TypeName" class="form-label"> Type Name</label>
+            <input asp-for="TypeName" class="form-control" type="text">
+        </div>
+        
+        <button class="btn btn-primary mt-3" type="submit">Create Type</button>
+         <button class="btn btn-outline-primary mt-3" asp-action="Index">Back to list</button>
+        
+    </form>
+   
+</div>
