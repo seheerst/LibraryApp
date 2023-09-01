@@ -1,0 +1,10 @@
+@model BookType
+
+<div class="container">
+    <form method="post">
+    <input hidden="hidden" asp-for="TypeId"/>
+    <h5>@Model.TypeName, are you sure you want to delete the type</h5>
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <button asp-action="Index" class="btn btn-Secondary">Back to list</button>
+    </form>
+</div>
