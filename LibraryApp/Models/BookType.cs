@@ -7,8 +7,9 @@ namespace LibraryApp.Models
         [Key]
         public int TypeId { get; set; }
 
-        [Required]
-        public string TypeName { get; set; }
+        [Required(ErrorMessage = "Type Name is required")]
+        [MaxLength(20)]
+        public string? TypeName { get; set; }
 
     }
 }
