@@ -1,0 +1,18 @@
+@model BookType
+
+<div class="container pb-5 mt-5">
+
+    <h2>Edit Type</h2>
+    <hr/>
+
+    <div class="col-7">
+        <form asp-controller="BookType" asp-action="Edit" method="post">
+            <input type="hidden" asp-for="TypeId"/>
+            <div class="mb-3">
+                <label asp-for="TypeName" class="form-label"> Type Name</label>
+                <input asp-for="TypeName" class="form-control border-input"/>
+            </div>
+            <button class="btn btn-outline-warning" type="submit"> Edit Type</button>
+        </form>
+    </div>
+</div>
