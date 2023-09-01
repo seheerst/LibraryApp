@@ -3,6 +3,7 @@
     
     <h1 class="text-secondary">Create New Type</h1>
     <hr>
+    <div style="color: red" asp-validation-summary="All"></div>
     <form asp-action="Create" method="post">
         <div class="form-group">
             <label asp-for="TypeName" class="form-label"> Type Name</label>
@@ -15,3 +16,10 @@
     </form>
    
 </div>
+
+@* @section Scripts *@
+@* { *@
+@*     @{ *@
+@*         <partial name="_ValidationScriptsPartial"/> *@
+@*     } *@
+@* } *@
