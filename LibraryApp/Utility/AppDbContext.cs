@@ -8,5 +8,10 @@ namespace LibraryApp.Utility
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public DbSet<BookType> BookType { get; set;}
+
+        public DbSet<Book> Books { get; set; }
+
+
     }
 }
+
