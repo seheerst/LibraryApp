@@ -1,9 +1,16 @@
-﻿@model List<BookType>
+﻿@using Microsoft.AspNetCore.Server.Kestrel.Core
+@model List<BookType>
+
+
+@if (TempData["successful"] != null)
+{
+    
+    <h4 style="color: red"> @TempData["successful"]</h4>
+}
+
 <h1 class="mb-4 text-primary">Book Types</h1>
 <div style="Display: flex; Align-items: center; Justify-content: center;">
-    
 <div >
-
     <table class="table table-bordered">
         <tr>
             <th width="130px">Id</th>
