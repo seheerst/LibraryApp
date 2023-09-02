@@ -1,0 +1,30 @@
+@model Book
+
+<div class="container pb-5 mt-5">
+
+    <h2>Edit Book</h2>
+    <hr/>
+
+    <div class="col-7">
+        <form asp-controller="Book" asp-action="Edit" method="post">
+            <input type="hidden" asp-for="BookId"/>
+            <div class="mb-3">
+                <label asp-for="BookName" class="form-label"> Book Name</label>
+                <input asp-for="BookName" class="form-control border-input"/>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label"> Description</label>
+                <input asp-for="Description" class="form-control border-input"/>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Author" class="form-label"> Author</label>
+                <input asp-for="Author" class="form-control border-input"/>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Price" class="form-label"> Price</label>
+                <input asp-for="Price" class="form-control border-input"/>
+            </div>
+            <button class="btn btn-outline-warning" type="submit"> Edit Book</button>
+        </form>
+    </div>
+</div>

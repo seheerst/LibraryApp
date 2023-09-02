@@ -1,0 +1,25 @@
+@model Book
+
+<div class="container">
+    <form method="post">
+    <input hidden="hidden" asp-for="BookId"/>
+     <div class="mb-3">
+                    <label asp-for="BookName" class="form-label"> Book Name</label>
+                    <input asp-for="BookName" disabled="disabled" class="form-control border-input"/>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label"> Description</label>
+                    <input asp-for="Description" disabled="disabled" class="form-control border-input"/>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Author" class="form-label"> Author</label>
+                    <input asp-for="Author" disabled="disabled" class="form-control border-input"/>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Price" class="form-label"> Price</label>
+                    <input asp-for="Price" disabled="disabled" class="form-control border-input"/>
+                </div>
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <button asp-action="Index" class="btn btn-Secondary">Back to list</button>
+    </form>
+</div>

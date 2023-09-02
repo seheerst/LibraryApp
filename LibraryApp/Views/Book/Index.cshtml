@@ -1,0 +1,50 @@
+@using Microsoft.AspNetCore.Server.Kestrel.Core
+@model List<Book>
+
+
+@if (TempData["successful"] != null)
+{
+    <h4 style="color: red"> @TempData["successful"]</h4>
+}
+
+<h1 class="mb-4 text-primary">Books</h1>
+<div style="Display: flex; Align-items: center; Justify-content: center;">
+    <div >
+        <table class="table table-bordered">
+            <tr>
+                <th width="130px">Id</th>
+                <th width="250px">
+                    Book Name
+                </th>
+                <th width="250px">
+                    Description
+                </th>
+                <th width="250px">
+                    Author
+                </th>
+                <th width="120px">
+                    Price
+                </th>
+                <th width="300px"></th>
+            </tr>
+            @foreach (var book in Model)
+            {
+                <tr>
+                    <td>@book.BookId</td>
+                    <td>@book.BookName</td>
+                    <td>@book.Description</td>
+                    <td>@book.Author</td>
+                    <td>@book.Price</td>
+
+                    <td >
+                        <a href="/Book/Edit/@book.BookId" type="button" class="btn btn-outline-secondary btn-sm" style="width: 110px">Edit</a>
+                        <a href="/Book/Delete/@book.BookId" type="button" class="btn btn-outline-danger btn-sm" style="width: 130px">Delete</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+<div class="row pt-3 pb-2" style=" width: 1200px; Justify-content: end">
+    <a asp-action="Create" type="button" class="btn btn-primary btn-lg" style="width: 150px">New Book</a>
+</div>
