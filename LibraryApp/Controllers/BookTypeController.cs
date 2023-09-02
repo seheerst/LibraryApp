@@ -8,15 +8,15 @@ namespace LibraryApp.Controllers
     public class BookTypeController : Controller
     {
 
-        private readonly AppDbContext _context;
+        private readonly IBookTypeRepository _repository;
 
-        public BookTypeController(AppDbContext context)
+        public BookTypeController(IBookTypeRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
         public IActionResult Index()
         {
-            List<BookType> bookTypes = _context.BookType.ToList();
+            List<BookType> bookTypes = _repository.GetAll().ToList();
             return View(bookTypes);
         }
         
@@ -31,8 +31,9 @@ namespace LibraryApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.BookType.Add(type);
-                _context.SaveChanges();
+                _repository.Add(type);
+                _repository.Save();
+                TempData["successful"] = "Type successfully created";
                 return RedirectToAction("Index");
             }
             return View(type);
@@ -46,7 +47,7 @@ namespace LibraryApp.Controllers
                 return NotFound();
             }
 
-            BookType bookType = _context.BookType.Find(id);
+            BookType bookType = _repository.Get(u=> u.TypeId == id);
             if (bookType == null)
             {
                 return NotFound();
@@ -63,13 +64,14 @@ namespace LibraryApp.Controllers
             }
             if (ModelState.IsValid)
             {
-                _context.Update(
+                _repository.Edit(
                     new BookType()
                     {
                         TypeId = type.TypeId,
                         TypeName = type.TypeName
                     });
-                _context.SaveChanges();
+                _repository.Save();
+                TempData["successful"] = "Type successfully edited";
                 return RedirectToAction("Index");
             }
             return View();
@@ -79,7 +81,7 @@ namespace LibraryApp.Controllers
 
         public IActionResult Delete(int id)
         {
-            BookType bookType = _context.BookType.Find(id);
+            BookType bookType = _repository.Get(u=> u.TypeId == id);
             return View(bookType);
         }
         
@@ -87,9 +89,11 @@ namespace LibraryApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            BookType type = _context.BookType.Find(id)!;
-            _context.BookType.Remove(type);
-            _context.SaveChanges();
+            BookType bookType = _repository.Get(u=> u.TypeId == id);
+
+            _repository.Delete(bookType);
+            _repository.Save();
+            TempData["successful"] = "Type successfully deleted";
             return RedirectToAction("Index");
         }
     }
