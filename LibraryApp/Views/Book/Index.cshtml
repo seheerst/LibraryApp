@@ -1,7 +1,6 @@
 @using Microsoft.AspNetCore.Server.Kestrel.Core
 @model List<Book>
 
-
 @if (TempData["successful"] != null)
 {
     <h4 style="color: red"> @TempData["successful"]</h4>
@@ -23,6 +22,9 @@
                     Author
                 </th>
                 <th width="120px">
+                    Book Type
+                </th>
+                <th width="120px">
                     Price
                 </th>
                 <th width="300px"></th>
@@ -34,10 +36,10 @@
                     <td>@book.BookName</td>
                     <td>@book.Description</td>
                     <td>@book.Author</td>
+                     <td></td>
                     <td>@book.Price</td>
-
                     <td >
-                        <a href="/Book/Edit/@book.BookId" type="button" class="btn btn-outline-secondary btn-sm" style="width: 110px">Edit</a>
+                        <a asp-controller="Book" asp-action="CreateAndEdit" asp-route-id="@book.BookId" type="button" class="btn btn-outline-secondary btn-sm" style="width: 110px">Edit</a>
                         <a href="/Book/Delete/@book.BookId" type="button" class="btn btn-outline-danger btn-sm" style="width: 130px">Delete</a>
                     </td>
                 </tr>
@@ -46,5 +48,5 @@
     </div>
 </div>
 <div class="row pt-3 pb-2" style=" width: 1200px; Justify-content: end">
-    <a asp-action="Create" type="button" class="btn btn-primary btn-lg" style="width: 150px">New Book</a>
+    <a asp-action="CreateAndEdit" type="button" class="btn btn-primary btn-lg" style="width: 150px">New Book</a>
 </div>
