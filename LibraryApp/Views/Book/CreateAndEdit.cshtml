@@ -1,0 +1,45 @@
+@model Book
+<div class="container">
+    <h1 class="text-secondary">@(Model == null? "Create New Book": "Edit Book") </h1>
+    <hr>
+    <div style="color: red" asp-validation-summary="All"></div>
+    <form  method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label asp-for="BookName" class="form-label"> Book Name</label>
+            <input asp-for="BookName" class="form-control border-input"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label"> Description</label>
+            <input asp-for="Description" class="form-control border-input"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Author" class="form-label"> Author</label>
+            <input asp-for="Author" class="form-control border-input"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="TypeId" class="form-label"> Book Type</label>
+            <select asp-for="TypeId" asp-items="ViewBag.Types" class="form-select border-input">
+                <option value=""> Select</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label asp-for="ImageUrl" class="form-label"> Image</label>
+            <input type="file" class="form-control" />
+        </div>
+        
+        <div class="mb-3">
+            <label asp-for="Price" class="form-label"> Price</label>
+            <input asp-for="Price" class="form-control border-input"/>
+        </div>
+        @if (Model != null)
+        {
+            <button class="btn btn-primary mt-3" type="submit">Edit Book</button>
+        }
+        else
+        {
+            <button class="btn btn-primary mt-3" type="submit">Create Book</button>
+        }
+       
+        <button class="btn btn-outline-primary mt-3" asp-action="Index">Back to list</button>
+    </form>
+</div>
