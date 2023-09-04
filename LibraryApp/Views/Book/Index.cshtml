@@ -9,9 +9,9 @@
 <h1 class="mb-4 text-primary">Books</h1>
 <div style="Display: flex; Align-items: center; Justify-content: center;">
     <div >
-        <table class="table table-bordered">
+        <table class="table table-bordered ">
             <tr>
-                <th width="130px">Id</th>
+                <th width="130px">Book Image</th>
                 <th width="250px">
                     Book Name
                 </th>
@@ -32,11 +32,11 @@
             @foreach (var book in Model)
             {
                 <tr>
-                    <td>@book.BookId</td>
+                    <td><img src="@book.ImageUrl" height="90px" class="px-4"/></td>
                     <td>@book.BookName</td>
                     <td>@book.Description</td>
                     <td>@book.Author</td>
-                     <td></td>
+                     <td>@book.BookType.TypeName</td>
                     <td>@book.Price</td>
                     <td >
                         <a asp-controller="Book" asp-action="CreateAndEdit" asp-route-id="@book.BookId" type="button" class="btn btn-outline-secondary btn-sm" style="width: 110px">Edit</a>
