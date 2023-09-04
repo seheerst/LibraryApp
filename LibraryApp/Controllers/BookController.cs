@@ -11,16 +11,17 @@ namespace LibraryApp.Controllers
 
         private readonly IBookRepository _bookRepository;
         private readonly IBookTypeRepository _bookTypeRepository;
+        public readonly IWebHostEnvironment _webHostEnvironment;
 
-
-        public BookController(IBookRepository repository, IBookTypeRepository bookTypeRepository)
+        public BookController(IBookRepository repository, IBookTypeRepository bookTypeRepository, IWebHostEnvironment webHostEnvironment)
         {
             _bookRepository = repository;
             _bookTypeRepository = bookTypeRepository;
+            _webHostEnvironment = webHostEnvironment;
         }
         public async Task<IActionResult> Index()
         {
-            List<Book> books = _bookRepository.GetAll().ToList();
+            List<Book> books = _bookRepository.GetAll(includeProps: "BookType").ToList();
            
             return View(books);
         }
@@ -56,55 +57,36 @@ namespace LibraryApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                _bookRepository.Add(book);
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                string bookPath = Path.Combine(wwwRootPath, @"img");
+                
+                if (file != null)
+                {
+                    using (var fileStream = new FileStream(Path.Combine(bookPath, file.FileName), FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+                      
+                    book.ImageUrl = @"\img\" + file.FileName;
+                }
+              
+
+                if (book.BookId == 0)
+                {
+                    _bookRepository.Add(book);
+                    TempData["successful"] = "Book successfully created";
+                }
+                else
+                {
+                    _bookRepository.Edit(book);
+                    TempData["successful"] = "Book successfully edited";
+                }
+                
                 _bookRepository.Save();
-                TempData["successful"] = "Book successfully created";
                 return RedirectToAction("Index");
             }
             return View(book);
         }
-        
-        // [HttpGet]
-        // public IActionResult Edit(int id)
-        // {
-        //     if (id==null)
-        //     {
-        //         return NotFound();
-        //     }
-        //
-        //     Book book = _bookRepository.Get(u=> u.BookId == id);
-        //     if (book == null)
-        //     {
-        //         return NotFound();
-        //     }
-        //     return View(book);
-        // }
-        //
-        // [HttpPost]
-        // public IActionResult Edit(int id, Book book)
-        // {
-        //     if (id!= book.BookId)
-        //     {
-        //         return NotFound();
-        //     }
-        //     if (ModelState.IsValid)
-        //     {
-        //         _bookRepository.Edit(
-        //             new Book()
-        //             {
-        //                BookId = book.BookId,
-        //                BookName = book.BookName,
-        //                Author = book.Author,
-        //                Description = book.Description,
-        //                Price = book.Price
-        //             });
-        //         _bookRepository.Save();
-        //         TempData["successful"] = "Book successfully edited";
-        //         return RedirectToAction("Index");
-        //     }
-        //     return View();
-        // }
-
         [HttpGet]
 
         public IActionResult Delete(int id)
