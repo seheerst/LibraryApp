@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace LibraryApp.Models
 {
@@ -13,12 +14,16 @@ namespace LibraryApp.Models
 
         public string Author { get; set; }
 
-        public Double Price { get; set; }
+        public double Price { get; set; }
 
+        [ValidateNever]
         public int TypeId { get; set; }
         [ForeignKey(("TypeId"))]
+        
+        [ValidateNever]
         public BookType BookType { get; set; }
 
+        [ValidateNever]
         public string ImageUrl { get; set; }
 
 
