@@ -11,6 +11,7 @@ namespace LibraryApp.Utility
 
         public DbSet<Book> Books { get; set; }
 
+        public DbSet<Rent> Rents { get; set; }
 
     }
 }
