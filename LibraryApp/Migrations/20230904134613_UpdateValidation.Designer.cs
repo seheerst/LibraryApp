@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibraryApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230903105629_UrlColumnAdd")]
-    partial class UrlColumnAdd
+    [Migration("20230904134613_UpdateValidation")]
+    partial class UpdateValidation
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

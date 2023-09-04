@@ -76,6 +76,27 @@ namespace LibraryApp.Migrations
                     b.ToTable("BookType");
                 });
 
+            modelBuilder.Entity("LibraryApp.Models.Rent", b =>
+                {
+                    b.Property<int>("RentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RentId"));
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RentId");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("Rents");
+                });
+
             modelBuilder.Entity("LibraryApp.Models.Book", b =>
                 {
                     b.HasOne("LibraryApp.Models.BookType", "BookType")
@@ -85,6 +106,17 @@ namespace LibraryApp.Migrations
                         .IsRequired();
 
                     b.Navigation("BookType");
+                });
+
+            modelBuilder.Entity("LibraryApp.Models.Rent", b =>
+                {
+                    b.HasOne("LibraryApp.Models.Book", "Book")
+                        .WithMany()
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
                 });
 #pragma warning restore 612, 618
         }
