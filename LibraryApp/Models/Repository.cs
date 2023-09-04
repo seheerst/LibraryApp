@@ -2,6 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using LibraryApp.Utility;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 
 namespace LibraryApp.Models;
 
@@ -15,19 +16,35 @@ public class Repository<T>: IRepository<T> where T: class
     {
         _context = context;
         this.dbSet = _context.Set<T>();
+        _context.Books.Include(k => k.BookType).Include(k=> k.TypeId);
     }
    
     
-    public IEnumerable<T> GetAll()
+    public IEnumerable<T> GetAll(string? includeProps = null)
     {
         IQueryable<T> query = dbSet;
-       return query.ToList();
+
+        if (!string.IsNullOrEmpty(includeProps))
+        {
+            foreach (var inc in includeProps.Split(new char[]{','}, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(inc);
+            }
+        }
+        return query.ToList();
     }
 
-    public T Get(Expression<Func<T, bool>> filter)
+    public T Get(Expression<Func<T, bool>> filter,string? includeProps = null)
     {
         IQueryable<T> query = dbSet;
         query = query.Where(filter);
+        if (!string.IsNullOrEmpty(includeProps))
+        {
+            foreach (var inc in includeProps.Split(new char[]{','}, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(inc);
+            }
+        }
         return query.FirstOrDefault()!;
     }
 
