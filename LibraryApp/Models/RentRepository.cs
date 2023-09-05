@@ -3,7 +3,7 @@ using LibraryApp.Utility;
 
 namespace LibraryApp.Models;
 
-public class RentRepository : Repository<Book>, IRentRepository
+public class RentRepository : Repository<Rent>, IRentRepository
 {
     private AppDbContext _context;
     public RentRepository(AppDbContext context) : base(context)
