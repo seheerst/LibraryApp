@@ -1,0 +1,24 @@
+@model Rent
+<h2>Delete Rent</h2>
+<hr>
+<div class="container">
+    <form method="post">
+        <input hidden="hidden" asp-for="BookId"/>
+        <div class="mb-3">
+            <label asp-for="RentId" class="form-label"> Rent Id</label>
+            <input asp-for="RentId" disabled="disabled" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="UserId" class="form-label"> User Id</label>
+            <input asp-for="UserId" disabled="disabled" class="form-control"/>
+        </div>
+  <div class="mb-3">
+                      <label asp-for="BookId" class="form-label"> Book to rent</label>
+                      <select asp-for="BookId" disabled="disabled" asp-items="ViewBag.BookList" class="form-control">
+                      </select>
+                  </div>
+
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <button asp-action="Index" class="btn btn-Secondary">Back to list</button>
+    </form>
+</div>

@@ -1,0 +1,41 @@
+@using Microsoft.AspNetCore.Server.Kestrel.Core
+@model List<Rent>
+
+@if (TempData["successful"] != null)
+{
+    <h4 style="color: red"> @TempData["successful"]</h4>
+}
+
+<h1 class="mb-4 text-primary">Rents</h1>
+<div style="Display: flex; Align-items: center; Justify-content: center;">
+    <div >
+        <table class="table table-bordered ">
+            <tr>
+                <th width="130px">Rent Id</th>
+                <th width="250px">
+                   User Id
+                </th>
+                <th width="250px">
+                   Book to Rent
+                </th>
+                <th width="300px"></th>
+            </tr>
+            @foreach (var rent in Model)
+            {
+                <tr>
+                    <td> @rent.RentId </td>
+                    <td>@rent.UserId</td>
+                    <td>@rent.Book.BookName</td>
+               
+                    <td >
+                        <a asp-controller="Rent" asp-action="CreateAndEdit" asp-route-id="@rent.RentId" type="button" class="btn btn-outline-secondary btn-sm" style="width: 110px">Edit</a>
+                        <a href="/Rent/Delete/@rent.RentId" type="button" class="btn btn-outline-danger btn-sm" style="width: 130px">Delete</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+<div class="row pt-3 pb-2" style=" width: 1200px; Justify-content: end">
+    <a asp-action="CreateAndEdit" type="button" class="btn btn-primary btn-lg" style="width: 150px">New Rent</a>
+</div>
