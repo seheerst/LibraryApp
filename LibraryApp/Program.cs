@@ -12,7 +12,7 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectio
 
 builder.Services.AddScoped<IBookTypeRepository, BookTypeRepository>();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
-
+builder.Services.AddScoped<IRentRepository, RentRepository>();
 
 var app = builder.Build();
 
