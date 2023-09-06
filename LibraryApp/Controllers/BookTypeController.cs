@@ -1,10 +1,11 @@
 ﻿using LibraryApp.Models;
 using LibraryApp.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace LibraryApp.Controllers
 {
+    [Authorize(Roles = UserRole.Role_Admin)]
     public class BookTypeController : Controller
     {
 
