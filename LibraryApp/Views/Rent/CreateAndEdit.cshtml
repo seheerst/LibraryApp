@@ -2,29 +2,42 @@
 
     <h1 class="text-secondary">@(Model == null ? "Create New Rent" : "Edit Rent") </h1>
     <hr>
-    @* <div style="color: red" asp-validation-summary="All"></div> *@
-    <form method="post" enctype="multipart/form-data">
-        @if (Model != null)
-        {
-            <input hidden="hidden" asp-for="RentId">
-        }
-                <div class="mb-3">
-                    <label asp-for="UserId" class="form-label"> User Id</label>
-                    <input asp-for="UserId" class="form-control border-input"/>
-                    <span asp-validation-for="UserId"></span>
-                </div>
-                <div class="mb-3">
-                    <label asp-for="BookId" class="form-label"> Book to rent</label>
-                    <select asp-for="BookId" asp-items="ViewBag.BookList" class="form-select border-input">
-                    </select>
-                </div>
-                @if (Model != null)
-                {
-                    <button class="btn btn-primary mt-3" type="submit">Edit Rent</button>
-                }
-                else
-                {
-                    <button class="btn btn-primary mt-3" type="submit">Create Rent</button>
-                }
-                <button class="btn btn-outline-primary mt-3" asp-action="Index">Back to list</button>
-    </form>
+@* <div style="color: red" asp-validation-summary="All"></div> *@
+<div class="row">
+    <div class="col-md-8">
+        <form method="post" enctype="multipart/form-data">
+            @if (Model != null)
+            {
+                <input hidden="hidden" asp-for="RentId">
+            }
+            <div class="mb-3">
+                <label asp-for="UserId" class="form-label"> User Id</label>
+                <input asp-for="UserId" class="form-control border-input"/>
+                <span asp-validation-for="UserId"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="BookId" class="form-label"> Book to rent</label>
+                <select asp-for="BookId" asp-items="ViewBag.BookList" class="form-select border-input">
+                </select>
+            </div>
+            @if (Model != null)
+            {
+                <button class="btn btn-primary mt-3" type="submit">Edit Rent</button>
+            }
+            else
+            {
+                <button class="btn btn-primary mt-3" type="submit">Create Rent</button>
+            }
+            <button class="btn btn-outline-primary mt-3" asp-action="Index">Back to list</button>
+        </form>
+    </div>
+    <div class="col-md-1"></div>
+       @if (Model != null)
+              {
+                  <div class="col-md-3">
+                      <img src="@Model.Book.ImageUrl" width="60%" alt="" style="border-radius: 7px; border: 1px solid #bbb9b9">
+                  </div>
+              }
+
+</div>
+   
