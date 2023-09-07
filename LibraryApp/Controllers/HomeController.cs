@@ -6,19 +6,20 @@ namespace LibraryApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IBookTypeRepository _bookTypeRepository;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IBookTypeRepository bookTypeRepository)
         {
-            _logger = logger;
+            _bookTypeRepository = bookTypeRepository;
         }
 
         public IActionResult Index()
         {
-            return View();
+            List<BookType> bookTypes = _bookTypeRepository.GetAll().ToList();
+            return View(bookTypes);
         }
 
-        public IActionResult Privacy()
+        public IActionResult Contact()
         {
             return View();
         }
