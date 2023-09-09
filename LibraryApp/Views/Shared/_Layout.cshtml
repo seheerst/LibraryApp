@@ -26,13 +26,19 @@
                     @if (User.IsInRole(UserRole.Role_Admin))
                     {
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="BookType" asp-action="Index">Book Type</a>
+                            <a class="nav-link" asp-area="" asp-controller="BookType" asp-action="Index">Book Type Operations</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Book" asp-action="Index">Book</a>
+                            <a class="nav-link" asp-area="" asp-controller="Book" asp-action="Index">Book Operations</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Rent" asp-action="Index">Rent</a>
+                            <a class="nav-link" asp-area="" asp-controller="Rent" asp-action="Index">Rent Operations</a>
+                        </li>
+                    }
+                    @if (User.IsInRole(UserRole.Role_User))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Book" asp-action="Index">Book List</a>
                         </li>
                     }
                     <li class="nav-item">
@@ -47,8 +53,10 @@
     </nav>
 </header>
 
-   
+<div class="mx-5 my-5">
+    
         @RenderBody()
+</div>
 
 
 
