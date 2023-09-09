@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace LibraryApp.Controllers
 {
-    [Authorize(Roles = UserRole.Role_Admin)]
+
     public class BookController : Controller
     {
 
@@ -20,13 +20,23 @@ namespace LibraryApp.Controllers
             _bookTypeRepository = bookTypeRepository;
             _webHostEnvironment = webHostEnvironment;
         }
-        public async Task<IActionResult> Index()
+        [Authorize(Roles = "Admin, User")]
+        public async Task<IActionResult> Index(string type)
         {
-            List<Book> books = _bookRepository.GetAll(includeProps: "BookType").ToList();
-           
-            return View(books);
+            var booksByTag = _bookRepository.GetAll(includeProps: "BookType");
+            
+            if (!string.IsNullOrEmpty(type))
+            {
+                booksByTag = booksByTag.Where(x => x.BookType.TypeName == type);
+                return View(booksByTag.ToList());
+            }
+            else
+            {
+                return View(booksByTag.ToList());
+            }
+       
         }
-        
+        [Authorize(Roles = UserRole.Role_Admin)]
         [HttpGet]
         public IActionResult CreateAndEdit(int id)
         {
@@ -52,7 +62,7 @@ namespace LibraryApp.Controllers
             }
             
         }
-        
+        [Authorize(Roles = UserRole.Role_Admin)]
         [HttpPost]
         public IActionResult CreateAndEdit(Book book, IFormFile? file)
         {
@@ -89,7 +99,7 @@ namespace LibraryApp.Controllers
             return View(book);
         }
         [HttpGet]
-
+        [Authorize(Roles = UserRole.Role_Admin)]
         public IActionResult Delete(int id)
         {
             Book book = _bookRepository.Get(u=> u.BookId == id);
@@ -98,6 +108,7 @@ namespace LibraryApp.Controllers
         
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = UserRole.Role_Admin)]
         public ActionResult DeleteConfirmed(int id)
         {
             Book book = _bookRepository.Get(u=> u.BookId == id);
