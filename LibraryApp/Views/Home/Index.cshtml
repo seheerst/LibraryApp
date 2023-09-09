@@ -1,37 +1,45 @@
-﻿@model List<BookType>
+﻿@using LibraryApp.Utility
+@model List<BookType>
 
 @{
     ViewData["Title"] = "Home Page";
 }
-<br/>
-<div class="row mx-4">
+<div class="row">
     <h1 style="color: #762a88"class="display-4 ">
         <strong>Welcome To Online Library</strong>
     </h1>
     <hr>
     <br/>
     <br/>
-    <div class="col-md-7">
+    @if (User.IsInRole(UserRole.Role_Admin) || User.IsInRole(UserRole.Role_User))
+    {
+        <div class="col-md-7">
+            <div>
+                <img src="/img/library.jpg" width="100%" alt="">
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-4 mb-4">
+
+            @foreach (var type in Model)
+            {
+                <div class="card" width: 100%>
+                    <div class="card-body">
+                        <h2 class="card-title" style="color: #762a88">@type.TypeName</h2>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">
+                            <a href="/books/@type.TypeName" class="text-secondary">View books in category</a>
+                        </h6>
+                    </div>
+                </div>
+            }
+
+
+        </div>
+    }
+    else
+    {
         <div>
             <img src="/img/library.jpg" width="100%" alt="">
         </div>
-    </div>
-    <div class="col-md-1"></div>
-    <div class="col-md-4 mb-4">
-        
-                @foreach (var type in Model)
-                {
-                    <div class="card" width: 100%>
-                        <div class="card-body">
-                            <h2 class="card-title" style="color: #762a88">@type.TypeName</h2>
-                            <h6 class="card-subtitle mb-2 text-body-secondary">
-                                <a href="/books/@type.TypeName" class="text-secondary">View books in category</a>
-                            </h6>
-                        </div>
-                    </div>
-                }
-        
-   
-    </div>
-
+    }
 </div>
