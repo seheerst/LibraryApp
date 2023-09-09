@@ -1,11 +1,13 @@
 @using Microsoft.AspNetCore.Server.Kestrel.Core
+@using LibraryApp.Utility
 @model List<Book>
 
 @if (TempData["successful"] != null)
 {
     <h4 style="color: red"> @TempData["successful"]</h4>
 }
-
+<div>
+    
 <h1 class="mb-4 text-primary">Books</h1>
 <div style="Display: flex; Align-items: center; Justify-content: center;">
     <div >
@@ -21,32 +23,45 @@
                 <th width="250px">
                     Author
                 </th>
-                <th width="120px">
+                <th width="160px">
                     Book Type
                 </th>
                 <th width="120px">
                     Price
                 </th>
+                @if (User.IsInRole(UserRole.Role_Admin))
+                {
+                    
                 <th width="300px"></th>
+                }
             </tr>
             @foreach (var book in Model)
             {
                 <tr>
-                    <td><img src="@book.ImageUrl" height="90px" class="px-4"/></td>
+                    <td align="center" valign="middle"><img src="@book.ImageUrl" height="85px"/></td>
                     <td>@book.BookName</td>
                     <td>@book.Description</td>
                     <td>@book.Author</td>
                      <td>@book.BookType.TypeName</td>
                     <td>@book.Price</td>
-                    <td >
-                        <a asp-controller="Book" asp-action="CreateAndEdit" asp-route-id="@book.BookId" type="button" class="btn btn-outline-secondary btn-sm" style="width: 110px">Edit</a>
-                        <a href="/Book/Delete/@book.BookId" type="button" class="btn btn-outline-danger btn-sm" style="width: 130px">Delete</a>
-                    </td>
+                    @if (User.IsInRole(UserRole.Role_Admin))
+                    {
+                        <td >
+                            <a asp-controller="Book" asp-action="CreateAndEdit" asp-route-id="@book.BookId" type="button" class="btn btn-outline-secondary btn-sm" style="width: 110px">Edit</a>
+                            <a href="/Book/Delete/@book.BookId" type="button" class="btn btn-outline-danger btn-sm" style="width: 130px">Delete</a>
+                        </td>
+                    }
+                  
                 </tr>
             }
         </table>
     </div>
 </div>
-<div class="row pt-3 pb-2" style=" width: 1200px; Justify-content: end">
-    <a asp-action="CreateAndEdit" type="button" class="btn btn-primary btn-lg" style="width: 150px">New Book</a>
+ @if (User.IsInRole(UserRole.Role_Admin))
+ {
+     <div class="row py-3 px-5" style=" Justify-content: end">
+         <a asp-action="CreateAndEdit" type="button" class="btn btn-primary btn-lg" style="width: 150px">New Book</a>
+     </div>
+ }
+
 </div>
